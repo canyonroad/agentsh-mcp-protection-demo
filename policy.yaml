@@ -1,0 +1,38 @@
+# Demo policy for agentsh MCP protection demo.
+# Permissive file/network rules — the interesting part is the MCP section.
+
+version: 1
+name: demo-permissive
+description: |
+  Permissive policy with MCP cross-server detection enabled.
+  Allows all file and network operations so the demo focuses
+  entirely on MCP tool-call interception.
+
+file_rules:
+  - name: allow-all
+    paths: ["**"]
+    operations: ["*"]
+    decision: allow
+
+network_rules:
+  - name: allow-all
+    domains: ["*"]
+    decision: allow
+
+command_rules:
+  - name: allow-all
+    commands: ["*"]
+    decision: allow
+
+resource_limits:
+  max_memory_mb: 1024
+  pids_max: 50
+  command_timeout: 2m
+  session_timeout: 1h
+
+audit:
+  log_allowed: true
+  log_denied: true
+  include_stdout: false
+  include_stderr: true
+  retention_days: 7

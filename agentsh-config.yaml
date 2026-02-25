@@ -1,0 +1,50 @@
+# agentsh server config for the MCP protection demo.
+
+server:
+  http:
+    addr: "0.0.0.0:18080"
+
+auth:
+  type: "none"
+
+logging:
+  level: "debug"
+  format: "text"
+
+audit:
+  enabled: true
+  storage:
+    sqlite_path: "/var/lib/agentsh/events.db"
+
+sessions:
+  base_dir: "/var/lib/agentsh/sessions"
+
+policies:
+  dir: "/etc/agentsh/policies"
+  default: "demo-permissive"
+
+sandbox:
+  mcp:
+    enforce_policy: true
+    fail_closed: false
+    server_policy: "none"
+    tool_policy: "none"
+    version_pinning:
+      enabled: true
+      on_change: "block"
+      auto_trust_first: true
+    cross_server:
+      enabled: true
+      read_then_send:
+        enabled: true
+        window: 30s
+      burst:
+        enabled: true
+        max_calls: 10
+        window: 5s
+      cross_server_flow:
+        enabled: true
+        same_turn_only: false
+        window: 30s
+      shadow_tool:
+        enabled: true

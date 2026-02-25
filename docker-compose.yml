@@ -1,0 +1,29 @@
+# agentsh MCP Protection Demo
+#
+# Run:  docker compose up --build
+# Or:   docker compose run --rm demo
+#
+# To use a local agentsh .deb, place it at ./agentsh.deb and uncomment
+# the AGENTSH_DEB build arg below.
+
+services:
+  demo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Uncomment to use a locally-built agentsh .deb:
+        # AGENTSH_DEB: ./agentsh.deb
+        AGENTSH_ARCH: amd64
+    volumes:
+      # Persist agentsh data between runs so policy generate works.
+      - agentsh-data:/var/lib/agentsh
+    environment:
+      AGENTSH_CONFIG: /etc/agentsh/config.yaml
+      # Set TERM for colored output.
+      TERM: xterm-256color
+    tty: true
+    stdin_open: true
+
+volumes:
+  agentsh-data:

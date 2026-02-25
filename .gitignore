@@ -1,0 +1,4 @@
+servers/notes-server/mcp-server-notes
+servers/web-server/mcp-server-web
+*.deb
+data/
