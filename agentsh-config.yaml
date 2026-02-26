@@ -33,6 +33,7 @@ sandbox:
       enabled: true
       on_change: "block"
       auto_trust_first: true
+      pin_binary: true
     cross_server:
       enabled: true
       read_then_send:
@@ -48,3 +49,10 @@ sandbox:
         window: 30s
       shadow_tool:
         enabled: true
+        similarity_check: true
+        similarity_threshold: 0.85
+    output_inspection:
+      enabled: true
+      on_detection: "alert"
+    sampling:
+      policy: "block"
